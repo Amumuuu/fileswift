@@ -1,0 +1,8 @@
+# Local installers and previews are not part of the public website repository.
+downloads/
+GitHub上传文件/
+*.exe
+*.zip
+首页优化预览.jpg
+部署说明.md
+
