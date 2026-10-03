@@ -7,8 +7,12 @@ function play(element,className){
   element.classList.add(className);
 }
 const screenshots=[
-  {src:'assets/filename.png',width:940,height:950,label:'文件名称查找',alt:'文件名称查找界面，支持关键词与格式筛选'},
-  {src:'assets/pdf.png',width:1220,height:795,label:'加密图纸处理',alt:'PDF 权限处理界面，显示文件统计与待处理文件清单'}
+  {src:'assets/filename.png',width:1502,height:932,label:'文件名称查找',alt:'收起左侧栏的文件名称查找实际界面'},
+  {src:'assets/content.png',width:1502,height:932,label:'文件内容查找',alt:'收起左侧栏的文件内容查找实际界面'},
+  {src:'assets/rename.png',width:1502,height:932,label:'批量改名工具',alt:'收起左侧栏的批量改名工具实际界面'},
+  {src:'assets/drawing.png',width:1502,height:932,label:'图纸信息整理',alt:'收起左侧栏的图纸信息整理实际界面，使用演示图纸'},
+  {src:'assets/watermark.png',width:1502,height:932,label:'批量去除水印',alt:'收起左侧栏的批量去除水印实际界面，使用演示图纸'},
+  {src:'assets/pdf.png',width:1502,height:932,label:'PDF 权限处理',alt:'收起左侧栏的PDF 权限处理实际界面'}
 ];
 const screenshotLoads=new Map();
 let selectedTab=0;
@@ -21,8 +25,9 @@ function loadScreenshot(index){
   return screenshotLoads.get(index);
 }
 async function selectTab(index){
-  if(index===selectedTab)return;
+  if(index===selectedTab&&!document.getElementById('shot-status').textContent)return;
   selectedTab=index;
+  document.getElementById('shot-count').textContent=`${String(index+1).padStart(2,'0')} / 06`;
   tabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;document.getElementById(tab.getAttribute('aria-controls')).hidden=i!==index;});
   play(document.getElementById(tabs[index].getAttribute('aria-controls')),'tab-enter');
   const image=document.getElementById('detail-image');
@@ -46,6 +51,9 @@ async function selectTab(index){
 tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectTab(index));tab.addEventListener('keydown',event=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;selectTab(next);tabs[next].focus();}});});
 tabs.forEach((tab,index)=>{['pointerenter','focus'].forEach(type=>tab.addEventListener(type,()=>{loadScreenshot(index).catch(()=>{});}));});
 
+document.getElementById('shot-prev').addEventListener('click',()=>selectTab((selectedTab+tabs.length-1)%tabs.length));
+document.getElementById('shot-next').addEventListener('click',()=>selectTab((selectedTab+1)%tabs.length));
+
 const imageDialog=document.getElementById('image-dialog');
 const previewImage=document.getElementById('preview-image');
 const zoomButton=document.getElementById('image-zoom');
@@ -54,7 +62,7 @@ document.querySelectorAll('[data-image-preview]').forEach(link=>link.addEventLis
   event.preventDefault();
   const source=link.querySelector('img');
   previewImage.src=source.src;previewImage.alt=source.alt;previewImage.width=source.width;previewImage.height=source.height;
-  document.getElementById('image-dialog-title').textContent=source.id==='detail-image'?document.getElementById('shot-label').textContent:'FileSwift 工作台';
+  document.getElementById('image-dialog-title').textContent=source.id==='detail-image'?document.getElementById('shot-label').textContent:'FileSwift 软件概览';
   document.getElementById('image-original').href=link.href;
   imageDialog.classList.remove('original-size');zoomButton.setAttribute('aria-pressed','false');zoomButton.textContent='原始尺寸';
   imageDialog.showModal();
@@ -90,26 +98,16 @@ if(downloadUrl){
   document.querySelectorAll('[data-download-cta]').forEach(element=>element.textContent='下载 FileSwift');
   document.querySelector('.header nav a[href="#download"]').textContent='下载软件';
   document.getElementById('download-eyebrow').textContent='03 / 下载软件';
-  const share=downloadConfig.mode==='share';
-  document.getElementById('download-label').textContent=share?'前往百度网盘下载':'下载 Windows 版';
-  document.getElementById('download-meta').textContent=share?'Windows 桌面版 · 将在新标签页打开百度网盘':'Windows 应用 · 本地文件处理';
-  if(share&&downloadConfig.extractionCode){
-    document.getElementById('share-code').hidden=false;
-    document.getElementById('share-code-value').textContent=downloadConfig.extractionCode;
-  }
+  document.getElementById('download-label').textContent='下载 Windows 版';
+  document.getElementById('download-meta').textContent='Windows 桌面应用 · 文件在本机处理';
+  const button=document.getElementById('download-button');
+  button.href=downloadUrl.href;
+  if(downloadConfig.mode==='direct')button.download=downloadConfig.filename||'FileSwift_V6_6.exe';
+  else {button.target='_blank';button.rel='noopener noreferrer';}
 }
-document.getElementById('copy-share-code').addEventListener('click',async()=>{
-  const status=document.getElementById('share-code-status');
-  try{await navigator.clipboard.writeText(downloadConfig.extractionCode||'');status.textContent='提取码已复制';}
-  catch{status.textContent='请手动复制上方提取码';}
-});
-document.getElementById('download-button').addEventListener('click',()=>{
-  if(downloadUrl){
-    const link=document.createElement('a');link.href=downloadUrl.href;link.rel='noopener noreferrer';
-    if(downloadConfig.mode==='share')link.target='_blank';
-    else link.download=downloadConfig.filename||'FileSwift_V6_6.exe';
-    document.body.append(link);link.click();link.remove();return;
-  }
+document.getElementById('download-button').addEventListener('click',event=>{
+  if(downloadUrl)return;
+  event.preventDefault();
   downloadDialog.showModal();
 });
 downloadDialog.querySelectorAll('.dialog-close,.dialog-dismiss').forEach(button=>button.addEventListener('click',()=>downloadDialog.close()));
@@ -142,4 +140,3 @@ function updateScroll(){
 }
 addEventListener('scroll',()=>{if(!scrollPending){scrollPending=true;requestAnimationFrame(updateScroll);}},{passive:true});
 addEventListener('resize',updateScroll);updateScroll();
-

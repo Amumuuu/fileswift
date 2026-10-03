@@ -88,10 +88,6 @@ h1 span { color:var(--blue); }
 .download-description { font-size:17px; line-height:1.85; color:#d0dff0; margin:24px 0; }
 .download-button { width:100%; border:0; }
 .download-meta { font-size:12px; color:#b4c8e0; text-align:center; margin:13px 0 23px; }
-.share-code { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px; margin:0 0 20px; font-size:13px; color:#d1deed; }
-.share-code strong { letter-spacing:2px; overflow-wrap:anywhere; }
-.share-code button { border:1px solid #ffffff40; background:transparent; color:#a9d0ff; padding:7px 10px; border-radius:5px; }
-#share-code-status { width:100%; text-align:center; min-height:18px; font-size:12px; }
 .download-contact { border-top:1px solid #ffffff20; padding-top:18px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:4px; }
 .download-contact>span { font-size:12px; color:#aac1db; }
 .email-copy { display:flex; gap:12px; align-items:center; border:0; background:transparent; color:#d1deed; font-size:13px; padding:5px 0; }
@@ -233,3 +229,17 @@ dialog::backdrop { background:#10263fbd; }
  .motion-ready .reveal { opacity:1; }
 }
 
+/* Manual gallery keeps all six screenshots in one section. */
+.gallery-tabs { gap:0; justify-content:space-between; overflow-x:auto; margin-bottom:28px; }
+.gallery-tabs button { flex:0 0 auto; padding:14px 18px; white-space:nowrap; }
+.showcase { grid-template-columns:minmax(0,.65fr) minmax(0,1.35fr); gap:40px; }
+.benefit-panel { min-height:320px; }
+.gallery-controls { display:flex; align-items:center; gap:15px; margin-top:24px; }
+.gallery-controls button { width:42px; height:42px; background:white; border:1px solid var(--line); border-radius:50%; color:var(--blue); font-size:20px; }
+.gallery-controls button:hover { background:#edf4ff; border-color:#90baf5; }
+#shot-count { font:13px Consolas,monospace; color:var(--muted); }
+.gallery-tip { margin-left:3px; color:var(--muted); font-size:12px; }
+.detail-viewport { height:auto; aspect-ratio:1502/932; overflow:hidden; scrollbar-gutter:auto; }
+.detail-viewport img { width:100%; height:auto; }
+@media(max-width:1000px) { .showcase { grid-template-columns:1fr; gap:25px; } .benefit-panel { min-height:0; } .benefit-panel>p { max-width:650px; } }
+@media(max-width:760px) { .gallery-tabs { margin-bottom:24px; justify-content:flex-start; } .gallery-tabs button { padding:13px 16px; } .detail-viewport { height:auto; } .gallery-controls { margin-top:20px; } .benefit-panel { min-height:310px; } }
