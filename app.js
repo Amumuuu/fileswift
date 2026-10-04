@@ -7,19 +7,24 @@ function play(element,className){
   element.classList.add(className);
 }
 const screenshots=[
-  {src:'assets/drawing-public.png',width:1592,height:988,label:'图纸信息整理',alt:'图纸信息整理界面展示，演示数据已脱敏'},
-  {src:'assets/watermark-public.png',width:1592,height:988,label:'批量去除水印',alt:'批量去除水印界面展示，演示数据已脱敏'},
-  {src:'assets/filename-public.png',width:1500,height:934,label:'文件名称查找',alt:'文件名称查找界面展示，演示数据已脱敏'},
-  {src:'assets/content-public.png',width:1500,height:934,label:'文件内容查找',alt:'文件内容查找界面展示，演示数据已脱敏'},
-  {src:'assets/rename-public.png',width:1589,height:990,label:'批量改名工具',alt:'批量改名工具界面展示，演示数据已脱敏'},
-  {src:'assets/pdf.png',width:1502,height:932,label:'PDF 权限处理',alt:'PDF 权限处理界面展示，演示数据已脱敏'}
+  {src:'assets/drawing-public.webp',width:1592,height:988,label:'图纸信息整理',caption:'图纸标注 · 信息台账',alt:'浏览与标注图纸，录入供应商、材质和报价信息'},
+  {src:'assets/watermark-public.webp',width:1592,height:988,label:'批量去除水印',caption:'目标分析 · 批量处理',alt:'分析文字、图片和注释水印，预览核对后批量处理'},
+  {src:'assets/filename-public.webp',width:1499,height:934,label:'文件名称查找',caption:'批量关键词 · 文件匹配',alt:'按图号、料号和关键词查找文件，复制结果并导出清单'},
+  {src:'assets/content-public.webp',width:1499,height:934,label:'文件内容查找',caption:'内容检索 · 命中定位',alt:'检索文档内容，定位关键词命中位置并汇总结果'},
+  {src:'assets/rename-public.webp',width:1589,height:990,label:'批量改名工具',caption:'名称映射 · 冲突预检',alt:'通过 Excel 映射文件名称，检查冲突并生成改名副本'},
+  {src:'assets/pdf.webp',width:1502,height:932,label:'PDF 权限处理',caption:'权限扫描 · 副本输出',alt:'扫描 PDF 权限状态，勾选文件处理并记录输出结果'}
 ];
 const screenshotLoads=new Map();
 let selectedTab=0;
-function loadScreenshot(index){
+function loadScreenshot(index,priority='low'){
   if(!screenshotLoads.has(index)){
-    const preload=new Image();preload.src=screenshots[index].src;
-    const ready=preload.decode().catch(error=>{screenshotLoads.delete(index);throw error;});
+    const preload=new Image();preload.decoding='async';preload.fetchPriority=priority;
+    const ready=new Promise((resolve,reject)=>{
+      const timer=setTimeout(()=>{preload.onload=null;preload.onerror=null;reject(new Error('图片加载超时'));},12000);
+      preload.onload=()=>{clearTimeout(timer);resolve(preload);};
+      preload.onerror=()=>{clearTimeout(timer);reject(new Error('图片加载失败'));};
+      preload.src=screenshots[index].src;
+    }).catch(error=>{screenshotLoads.delete(index);throw error;});
     screenshotLoads.set(index,ready);
   }
   return screenshotLoads.get(index);
@@ -39,18 +44,42 @@ async function selectTab(index){
   const status=document.getElementById('shot-status');
   viewport.setAttribute('aria-busy','true');status.textContent='正在加载截图…';
   try{
-    await loadScreenshot(index);
+    await loadScreenshot(index,'high');
     if(index!==selectedTab)return;
     const shot=screenshots[index];
     image.width=shot.width;image.height=shot.height;image.src=shot.src;image.alt=shot.alt;
     const link=document.getElementById('detail-preview');link.href=shot.src;link.setAttribute('aria-label',`放大查看${shot.label}界面`);
     document.getElementById('shot-label').textContent=shot.label;
+    document.getElementById('shot-caption').textContent=shot.caption;
     viewport.scrollTop=0;status.textContent='';
   }catch{
-    if(index===selectedTab)status.textContent='截图加载失败，请切换标签重试';
+    if(index===selectedTab)status.textContent='图片加载较慢，点击当前功能重试';
   }finally{
     if(index===selectedTab)viewport.removeAttribute('aria-busy');
   }
+}
+
+// Warm the gallery near the viewport, one image at a time to limit bandwidth.
+let galleryWarmed=false;
+async function warmGallery(){
+  if(galleryWarmed)return;
+  galleryWarmed=true;
+  const start=selectedTab;
+  for(let offset=0;offset<screenshots.length;offset++){
+    await loadScreenshot((start+offset)%screenshots.length).catch(()=>{});
+  }
+}
+const initialScreenshot=document.getElementById('detail-image');
+function reportImageError(){document.getElementById('shot-status').textContent='图片加载较慢，点击当前功能重试';}
+initialScreenshot.addEventListener('error',reportImageError);
+if(initialScreenshot.complete&&!initialScreenshot.naturalWidth)reportImageError();
+if('IntersectionObserver' in window){
+  const galleryObserver=new IntersectionObserver(entries=>{
+    if(entries.some(entry=>entry.isIntersecting)){galleryObserver.disconnect();warmGallery();}
+  },{rootMargin:'400px'});
+  galleryObserver.observe(document.querySelector('.detail-shot'));
+}else{
+  addEventListener('load',warmGallery,{once:true});
 }
 tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectTab(index));tab.addEventListener('keydown',event=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;selectTab(next);tabs[next].focus();}});});
 tabs.forEach((tab,index)=>{['pointerenter','focus'].forEach(type=>tab.addEventListener(type,()=>{loadScreenshot(index).catch(()=>{});}));});
