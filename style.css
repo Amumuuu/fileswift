@@ -243,3 +243,6 @@ dialog::backdrop { background:#10263fbd; }
 .detail-viewport img { width:100%; height:auto; }
 @media(max-width:1000px) { .showcase { grid-template-columns:1fr; gap:25px; } .benefit-panel { min-height:0; } .benefit-panel>p { max-width:650px; } }
 @media(max-width:760px) { .gallery-tabs { margin-bottom:24px; justify-content:flex-start; } .gallery-tabs button { padding:13px 16px; } .detail-viewport { height:auto; } .gallery-controls { margin-top:20px; } .benefit-panel { min-height:310px; } }
+
+.gallery-tabs { scrollbar-width:none; }
+.gallery-tabs::-webkit-scrollbar { display:none; }

@@ -7,12 +7,12 @@ function play(element,className){
   element.classList.add(className);
 }
 const screenshots=[
-  {src:'assets/filename.png',width:1502,height:932,label:'文件名称查找',alt:'收起左侧栏的文件名称查找实际界面'},
-  {src:'assets/content.png',width:1502,height:932,label:'文件内容查找',alt:'收起左侧栏的文件内容查找实际界面'},
-  {src:'assets/rename.png',width:1502,height:932,label:'批量改名工具',alt:'收起左侧栏的批量改名工具实际界面'},
-  {src:'assets/drawing.png',width:1502,height:932,label:'图纸信息整理',alt:'收起左侧栏的图纸信息整理实际界面，使用演示图纸'},
-  {src:'assets/watermark.png',width:1502,height:932,label:'批量去除水印',alt:'收起左侧栏的批量去除水印实际界面，使用演示图纸'},
-  {src:'assets/pdf.png',width:1502,height:932,label:'PDF 权限处理',alt:'收起左侧栏的PDF 权限处理实际界面'}
+  {src:'assets/drawing-public.png',width:1592,height:988,label:'图纸信息整理',alt:'图纸信息整理界面展示，演示数据已脱敏'},
+  {src:'assets/watermark-public.png',width:1592,height:988,label:'批量去除水印',alt:'批量去除水印界面展示，演示数据已脱敏'},
+  {src:'assets/filename-public.png',width:1500,height:934,label:'文件名称查找',alt:'文件名称查找界面展示，演示数据已脱敏'},
+  {src:'assets/content-public.png',width:1500,height:934,label:'文件内容查找',alt:'文件内容查找界面展示，演示数据已脱敏'},
+  {src:'assets/rename-public.png',width:1589,height:990,label:'批量改名工具',alt:'批量改名工具界面展示，演示数据已脱敏'},
+  {src:'assets/pdf.png',width:1502,height:932,label:'PDF 权限处理',alt:'PDF 权限处理界面展示，演示数据已脱敏'}
 ];
 const screenshotLoads=new Map();
 let selectedTab=0;
@@ -27,6 +27,10 @@ function loadScreenshot(index){
 async function selectTab(index){
   if(index===selectedTab&&!document.getElementById('shot-status').textContent)return;
   selectedTab=index;
+  const strip=tabs[index].parentElement;
+  const tabBox=tabs[index].getBoundingClientRect(),stripBox=strip.getBoundingClientRect();
+  if(tabBox.left<stripBox.left)strip.scrollLeft+=tabBox.left-stripBox.left;
+  else if(tabBox.right>stripBox.right)strip.scrollLeft+=tabBox.right-stripBox.right;
   document.getElementById('shot-count').textContent=`${String(index+1).padStart(2,'0')} / 06`;
   tabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;document.getElementById(tab.getAttribute('aria-controls')).hidden=i!==index;});
   play(document.getElementById(tabs[index].getAttribute('aria-controls')),'tab-enter');
