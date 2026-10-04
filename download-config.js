@@ -1,6 +1,6 @@
-// 仅需修改 url 即可更换下载页面。mode: 'page' 打开下载页面，'direct' 用于安装包直链。
+// 升版时修改版本号和两个下载地址，提交到 main 后自动发布。
 window.FILESWIFT_DOWNLOAD = {
-  mode: 'page',
-  url: 'https://pan.baidu.com/s/16sBFCZqR-UQ7TRKGO1U1wQ?pwd=6k3j',
-  filename: 'FileSwift_V6_6.exe'
+  version: 'V6.6',
+  directUrl: 'https://github.com/Amumuuu/fileswift/releases/download/v6.6/FileSwift_V6_6.exe',
+  backupUrl: 'https://pan.baidu.com/s/1bMv-SttWellBfOOXsjvs9Q?pwd=6666'
 };

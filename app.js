@@ -87,33 +87,30 @@ paths.download='M12 3v12 M7 10l5 5 5-5 M4 16v5h16v-5';
 document.querySelectorAll('[data-icon]').forEach(element=>{element.innerHTML=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${paths[element.dataset.icon]}"/></svg>`;});
 document.getElementById('copy-email').addEventListener('click',async()=>{const status=document.getElementById('copy-status');try{await navigator.clipboard.writeText('Cato_chen@163.com');status.textContent='邮箱已复制';}catch{status.textContent='请手动复制邮箱：Cato_chen@163.com';}});
 
-// Share links open normally; only package URLs use the download attribute.
+// Download destinations are maintained in download-config.js.
 const downloadDialog=document.getElementById('download-dialog');
 const downloadConfig=window.FILESWIFT_DOWNLOAD||{};
-let downloadUrl=null;
-try{
-  if(downloadConfig.url){
-    const candidate=new URL(downloadConfig.url,location.href);
-    const allowed=downloadConfig.mode==='share'?['https:','http:']:['https:','http:','file:'];
-    if(allowed.includes(candidate.protocol))downloadUrl=candidate;
-  }
-}catch{ /* Leave the contact option available if the URL is invalid. */ }
-if(downloadUrl){
-  document.querySelectorAll('[data-download-cta]').forEach(element=>element.textContent='下载 FileSwift');
+const safeDownloadUrl=value=>{try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)?u.href:null;}catch{return null;}};
+const directUrl=safeDownloadUrl(downloadConfig.directUrl);
+const backupUrl=safeDownloadUrl(downloadConfig.backupUrl);
+for(const [id,url] of [['download-direct',directUrl],['download-backup',backupUrl]]){
+  const link=document.getElementById(id);
+  if(url)link.href=url;else link.hidden=true;
+}
+if(downloadConfig.version){
+  document.querySelector('.brand-version').textContent=downloadConfig.version;
+  document.querySelector('.download-brand p').textContent=`${downloadConfig.version} · Windows 桌面版`;
+  document.getElementById('download-version').textContent=`${downloadConfig.version} · Windows 桌面版`;
+}
+if(directUrl||backupUrl){
+  document.querySelectorAll('[data-download-cta]').forEach(el=>el.textContent='下载 FileSwift');
   document.querySelector('.header nav a[href="#download"]').textContent='下载软件';
   document.getElementById('download-eyebrow').textContent='03 / 下载软件';
   document.getElementById('download-label').textContent='下载 Windows 版';
   document.getElementById('download-meta').textContent='Windows 桌面应用 · 文件在本机处理';
-  const button=document.getElementById('download-button');
-  button.href=downloadUrl.href;
-  if(downloadConfig.mode==='direct')button.download=downloadConfig.filename||'FileSwift_V6_6.exe';
-  else {button.target='_blank';button.rel='noopener noreferrer';}
 }
-document.getElementById('download-button').addEventListener('click',event=>{
-  if(downloadUrl)return;
-  event.preventDefault();
-  downloadDialog.showModal();
-});
+const downloadButton=document.getElementById('download-button');
+downloadButton.addEventListener('click',event=>{event.preventDefault();downloadDialog.showModal();});
 downloadDialog.querySelectorAll('.dialog-close,.dialog-dismiss').forEach(button=>button.addEventListener('click',()=>downloadDialog.close()));
 downloadDialog.addEventListener('click',event=>{
   if(event.target!==downloadDialog)return;
