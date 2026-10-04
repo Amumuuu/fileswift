@@ -2,5 +2,5 @@
 window.FILESWIFT_DOWNLOAD = {
   version: 'V6.6',
   directUrl: 'https://github.com/Amumuuu/fileswift/releases/download/v6.6/FileSwift_V6_6.exe',
-  backupUrl: 'https://pan.baidu.com/s/1bMv-SttWellBfOOXsjvs9Q?pwd=6666'
+  backupUrl: 'https://pan.baidu.com/s/1FIZYmsOrTBK4onZT6D9s_Q?pwd=6666'
 };
