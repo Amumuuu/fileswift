@@ -12,24 +12,24 @@ const screenshots=[
     "width": 1502,
     "height": 932,
     "label": "文件批量查找",
-    "caption": "软件实拍 · V7.0",
-    "alt": "FileSwift V7.0 文件批量查找实际界面"
+    "caption": "软件实拍 · V7.1",
+    "alt": "FileSwift V7.1 文件批量查找实际界面"
   },
   {
     "src": "assets/drawing-v7.png",
     "width": 1502,
     "height": 932,
     "label": "图纸智能处理",
-    "caption": "软件实拍 · V7.0",
-    "alt": "FileSwift V7.0 图纸智能处理实际界面"
+    "caption": "软件实拍 · V7.1",
+    "alt": "FileSwift V7.1 图纸智能处理实际界面"
   },
   {
     "src": "assets/cad-v7.png",
     "width": 1920,
     "height": 1027,
     "label": "CAD快捷看图",
-    "caption": "软件实拍 · V7.0",
-    "alt": "FileSwift V7.0 CAD快捷看图实际界面"
+    "caption": "软件实拍 · V7.1",
+    "alt": "FileSwift V7.1 CAD快捷看图实际界面"
   },
   {
     "src": "assets/rename-v7.png",
@@ -37,15 +37,15 @@ const screenshots=[
     "height": 988,
     "label": "批量改名工具",
     "caption": "界面实拍 · 路径已隐藏",
-    "alt": "FileSwift V7.0 批量改名界面，个人路径已隐藏"
+    "alt": "FileSwift V7.1 批量改名界面，个人路径已隐藏"
   },
   {
     "src": "assets/pdf.webp",
     "width": 1502,
     "height": 932,
     "label": "加密图纸破解",
-    "caption": "界面示意 · V7.0",
-    "alt": "加密图纸破解功能示意，非 V7.0 实拍"
+    "caption": "界面示意 · V7.1",
+    "alt": "加密图纸破解功能示意，非 V7.1 实拍"
   }
 ];
 const screenshotLoads=new Map();

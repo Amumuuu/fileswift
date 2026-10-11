@@ -1,8 +1,8 @@
-# FileSwift 官网维护（V7.0）
+# FileSwift 官网维护（V7.1）
 
 官网：https://fileswift.cn
 仓库：https://github.com/Amumuuu/fileswift
-当前安装包：https://github.com/Amumuuu/fileswift/releases/tag/v7.0
+当前安装包：https://github.com/Amumuuu/fileswift/releases/tag/v7.1
 
 ## 升版与替换下载地址
 
@@ -22,6 +22,6 @@
 
 ## 本次安装包校验
 
-文件名：FileSwift_7.0_Setup.exe
-大小：221793765 字节
-SHA-256：2d0d2d2f8305b91b0a5d4eb6ce5d23cc00b2397df66ffc4f5f96a918657bde2d
+文件名：FileSwift_7.1_Setup.exe
+大小：221826848 字节
+SHA-256：8c3b291460173b08218b96bf5153fa62733c018ac3391da2bb832aff6ad2faa6
