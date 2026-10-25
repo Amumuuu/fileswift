@@ -8,44 +8,49 @@ function play(element,className){
 }
 const screenshots=[
   {
-    "src": "assets/find-v7.png",
-    "width": 1502,
+    "src": "assets/find-v73.webp",
+    "original": "assets/find-v73-original.png",
+    "width": 1345,
     "height": 932,
     "label": "文件批量查找",
-    "caption": "软件实拍 · V7.1",
-    "alt": "FileSwift V7.1 文件批量查找实际界面"
+    "caption": "软件实拍 · V7.3",
+    "alt": "FileSwift V7.3 文件批量查找实际界面"
   },
   {
-    "src": "assets/drawing-v7.png",
-    "width": 1502,
+    "src": "assets/drawing-v73.webp",
+    "original": "assets/drawing-v73-original.png",
+    "width": 1345,
     "height": 932,
     "label": "图纸智能处理",
-    "caption": "软件实拍 · V7.1",
-    "alt": "FileSwift V7.1 图纸智能处理实际界面"
+    "caption": "软件实拍 · V7.3",
+    "alt": "FileSwift V7.3 图纸智能处理实际界面"
   },
   {
-    "src": "assets/cad-v7.png",
-    "width": 1920,
-    "height": 1027,
+    "src": "assets/cad-v73.webp",
+    "original": "assets/cad-v73-original.png",
+    "width": 1345,
+    "height": 932,
     "label": "CAD快捷看图",
-    "caption": "软件实拍 · V7.1",
-    "alt": "FileSwift V7.1 CAD快捷看图实际界面"
+    "caption": "软件实拍 · V7.3",
+    "alt": "FileSwift V7.3 CAD快捷看图实际界面"
   },
   {
-    "src": "assets/rename-v7.png",
-    "width": 1592,
-    "height": 988,
+    "src": "assets/rename-v73.webp",
+    "original": "assets/rename-v73-original.png",
+    "width": 1345,
+    "height": 932,
     "label": "批量改名工具",
-    "caption": "界面实拍 · 路径已隐藏",
-    "alt": "FileSwift V7.1 批量改名界面，个人路径已隐藏"
+    "caption": "软件实拍 · V7.3",
+    "alt": "FileSwift V7.3 批量改名工具实际界面"
   },
   {
-    "src": "assets/pdf.webp",
-    "width": 1502,
+    "src": "assets/pdf-v73.webp",
+    "original": "assets/pdf-v73-original.png",
+    "width": 1345,
     "height": 932,
     "label": "加密图纸破解",
-    "caption": "界面示意 · V7.1",
-    "alt": "加密图纸破解功能示意，非 V7.1 实拍"
+    "caption": "软件实拍 · V7.3",
+    "alt": "FileSwift V7.3 加密图纸破解实际界面"
   }
 ];
 const screenshotLoads=new Map();
@@ -55,7 +60,7 @@ function loadScreenshot(index,priority='low'){
     const preload=new Image();preload.decoding='async';preload.fetchPriority=priority;
     const ready=new Promise((resolve,reject)=>{
       const timer=setTimeout(()=>{preload.onload=null;preload.onerror=null;reject(new Error('图片加载超时'));},12000);
-      preload.onload=()=>{clearTimeout(timer);resolve(preload);};
+      preload.onload=async()=>{clearTimeout(timer);try{await preload.decode();resolve(preload);}catch(error){reject(error);}};
       preload.onerror=()=>{clearTimeout(timer);reject(new Error('图片加载失败'));};
       preload.src=screenshots[index].src;
     }).catch(error=>{screenshotLoads.delete(index);throw error;});
@@ -82,7 +87,7 @@ async function selectTab(index){
     if(index!==selectedTab)return;
     const shot=screenshots[index];
     image.width=shot.width;image.height=shot.height;image.src=shot.src;image.alt=shot.alt;
-    const link=document.getElementById('detail-preview');link.href=shot.src;link.setAttribute('aria-label',`放大查看${shot.label}界面`);
+    const link=document.getElementById('detail-preview');link.href=shot.original||shot.src;link.setAttribute('aria-label',`放大查看${shot.label}界面`);
     document.getElementById('shot-label').textContent=shot.label;
     document.getElementById('shot-caption').textContent=shot.caption;
     viewport.scrollTop=0;status.textContent='';
@@ -128,7 +133,7 @@ document.querySelectorAll('[data-image-preview]').forEach(link=>link.addEventLis
   if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
   event.preventDefault();
   const source=link.querySelector('img');
-  previewImage.src=source.src;previewImage.alt=source.alt;previewImage.width=source.width;previewImage.height=source.height;
+  previewImage.src=link.href;previewImage.alt=source.alt;previewImage.width=source.width;previewImage.height=source.height;
   document.getElementById('image-dialog-title').textContent=source.id==='detail-image'?document.getElementById('shot-label').textContent:'FileSwift 软件概览';
   document.getElementById('image-original').href=link.href;
   imageDialog.classList.remove('original-size');zoomButton.setAttribute('aria-pressed','false');zoomButton.textContent='原始尺寸';
