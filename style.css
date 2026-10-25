@@ -301,28 +301,42 @@ dialog::backdrop { background:#10263fbd; }
 @media(max-width:1000px) { .showcase { gap:28px; } }
 @media(max-width:760px) { .visual-caption { padding-inline:0; font-size:11px; } .visual-footer { margin-inline:0; padding-top:14px; } .hero-visual .product-shot { margin-block:8px; } .detail-title { font-size:12px; } .detail-viewport { border-radius:6px; } }
 
-/* Give real interface text enough pixels: copy above, working canvas below. */
-.showcase { display:flex; flex-direction:column; align-items:stretch; gap:26px; }
+/* Compact desktop reading: the explanation and preview share one screen. */
+.benefits { padding-block:28px; }
+.benefits .section-heading { margin-bottom:18px; }
+.gallery-tabs { margin-bottom:20px; }
+.showcase { display:grid; grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr); gap:40px; align-items:center; }
 .showcase-content { width:100%; }
-.showcase-content > .benefit-panel,
-.showcase-content > .benefit-panel[hidden] { display:grid!important; grid-template-columns:.85fr 1.15fr 1fr; gap:34px; align-items:start; }
-.showcase-content > .benefit-panel h3 { font-size:27px; margin:0; }
-.showcase-content > .benefit-panel > p { margin:0; max-width:none; font-size:15px; }
-.showcase-content .check-list { margin:0; }
-.showcase-content .check-list li { margin-top:0; margin-bottom:12px; }
-.showcase-content > .gallery-controls { margin-top:14px; }
-.detail-shot { width:100%; }
-.detail-viewport { max-height:none; }
-@media(max-width:900px) {
- .showcase-content > .benefit-panel,.showcase-content > .benefit-panel[hidden] { grid-template-columns:1fr 1.15fr; gap:18px 28px; }
- .showcase-content .check-list { grid-column:1/-1; display:flex; gap:18px; flex-wrap:wrap; }
- .showcase-content .check-list li { margin-bottom:0; }
+.showcase-content > .benefit-panel,.showcase-content > .benefit-panel[hidden] { display:block!important; min-height:0; }
+.showcase-content > .benefit-panel h3 { font-size:28px; line-height:1.45; margin:0 0 16px; }
+.showcase-content > .benefit-panel > p { margin:0; max-width:430px; font-size:15px; line-height:1.9; }
+.showcase-content .check-list { margin:22px 0 0; }
+.showcase-content .check-list li { margin-top:10px; margin-bottom:0; }
+.showcase-content > .gallery-controls { margin-top:22px; }
+.detail-shot { --preview-height:clamp(300px,calc(100svh - 330px),470px); width:100%; max-width:calc(var(--preview-height) * 1.434389); justify-self:center; }
+.feature-icon { width:44px; height:44px; border-radius:0; background:transparent; }
+.feature-icon img { width:44px; height:44px; object-fit:contain; }
+@media(max-width:1000px) {
+ .benefits { padding-block:42px; }
+ .showcase { grid-template-columns:1fr; gap:24px; }
+ .showcase-content > .benefit-panel > p { max-width:680px; }
+ .detail-shot { max-width:700px; justify-self:center; }
 }
 @media(max-width:600px) {
- .showcase-content > .benefit-panel,.showcase-content > .benefit-panel[hidden] { display:block!important; }
- .showcase-content > .benefit-panel > p { margin:16px 0 0; }
- .showcase-content .check-list { display:block; margin-top:22px; }
- .showcase-content .check-list li { margin-top:12px; }
+ .benefits { padding-block:40px; }
+ .showcase-content > .benefit-panel h3 { font-size:26px; }
+ .showcase-content > .benefit-panel > p { font-size:15px; line-height:1.9; }
  .showcase-content > .gallery-controls { margin-top:20px; }
- .showcase { gap:22px; }
+ .gallery-controls button { width:42px; height:42px; }
+ .detail-shot { max-width:100%; }
+ .feature p { font-size:14px; line-height:1.85; }
+}
+
+@media(min-width:1001px) {
+ .benefits { padding-top:16px; padding-bottom:28px; }
+ .benefits .section-heading { display:flex; gap:20px; align-items:center; }
+ .benefits .section-heading .eyebrow { margin:0; white-space:nowrap; font-size:13px; }
+ .benefits .section-heading h2 { font-size:29px; line-height:1.5; }
+ .benefits .section-heading > p:last-child:not(.eyebrow) { position:static; margin:0 0 0 auto; font-size:13px; line-height:1.8; }
+ .detail-title { padding-bottom:10px; }
 }
