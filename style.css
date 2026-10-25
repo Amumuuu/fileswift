@@ -282,3 +282,47 @@ dialog::backdrop { background:#10263fbd; }
 .download-option-primary { border-color:#81aff5; background:#f1f6ff; }
 .download-option strong em { font-size:11px; font-style:normal; color:#2368cf; background:#dceaff; border-radius:4px; padding:2px 6px; margin-left:6px; vertical-align:middle; }
 #download-dialog { max-height:90svh; overflow-y:auto; }
+
+/* Let the product artwork sit in the page instead of nesting app windows. */
+.hero-visual { border:0; padding:0; background:transparent; box-shadow:none; position:relative; isolation:isolate; }
+.hero-visual::before { content:''; position:absolute; inset:12% 2% 10%; z-index:-1; background:radial-gradient(ellipse,#eaf5ff80,transparent 70%); pointer-events:none; }
+.hero-visual > .shot-link { border:0; border-radius:0; overflow:visible; background:transparent; }
+.hero-visual .product-shot { background:transparent; border-radius:0; width:100%; height:auto; }
+.visual-caption { padding:0 16px 6px; }
+.visual-footer { margin:0 16px; padding:18px 0 0; border-top:1px solid #dce4ee80; }
+/* Show the work area directly. The complete source stays in the zoom dialog. */
+.detail-shot { padding:0; border:0; border-radius:0; background:transparent; box-shadow:none; }
+.detail-title { padding:0 2px 14px; align-items:center; }
+.detail-viewport { aspect-ratio:1268/884; height:auto; border:0; border-radius:9px; position:relative; background:#fff; overflow:hidden; box-shadow:0 14px 36px #1b416b0b,0 0 0 1px #193b6214; }
+.detail-viewport .shot-link { position:absolute; inset:0; display:block; border-radius:0; }
+.detail-viewport img { position:absolute; max-width:none; width:106.07256%; height:auto; left:-5.52051%; top:-3.61991%; object-fit:fill; border-radius:0; }
+.detail-hint { margin-top:14px; color:#718198; }
+.showcase { gap:46px; align-items:center; }
+@media(max-width:1000px) { .showcase { gap:28px; } }
+@media(max-width:760px) { .visual-caption { padding-inline:0; font-size:11px; } .visual-footer { margin-inline:0; padding-top:14px; } .hero-visual .product-shot { margin-block:8px; } .detail-title { font-size:12px; } .detail-viewport { border-radius:6px; } }
+
+/* Give real interface text enough pixels: copy above, working canvas below. */
+.showcase { display:flex; flex-direction:column; align-items:stretch; gap:26px; }
+.showcase-content { width:100%; }
+.showcase-content > .benefit-panel,
+.showcase-content > .benefit-panel[hidden] { display:grid!important; grid-template-columns:.85fr 1.15fr 1fr; gap:34px; align-items:start; }
+.showcase-content > .benefit-panel h3 { font-size:27px; margin:0; }
+.showcase-content > .benefit-panel > p { margin:0; max-width:none; font-size:15px; }
+.showcase-content .check-list { margin:0; }
+.showcase-content .check-list li { margin-top:0; margin-bottom:12px; }
+.showcase-content > .gallery-controls { margin-top:14px; }
+.detail-shot { width:100%; }
+.detail-viewport { max-height:none; }
+@media(max-width:900px) {
+ .showcase-content > .benefit-panel,.showcase-content > .benefit-panel[hidden] { grid-template-columns:1fr 1.15fr; gap:18px 28px; }
+ .showcase-content .check-list { grid-column:1/-1; display:flex; gap:18px; flex-wrap:wrap; }
+ .showcase-content .check-list li { margin-bottom:0; }
+}
+@media(max-width:600px) {
+ .showcase-content > .benefit-panel,.showcase-content > .benefit-panel[hidden] { display:block!important; }
+ .showcase-content > .benefit-panel > p { margin:16px 0 0; }
+ .showcase-content .check-list { display:block; margin-top:22px; }
+ .showcase-content .check-list li { margin-top:12px; }
+ .showcase-content > .gallery-controls { margin-top:20px; }
+ .showcase { gap:22px; }
+}
