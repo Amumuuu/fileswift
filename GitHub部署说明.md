@@ -6,7 +6,7 @@
 
 ## 升版与替换下载地址
 
-1. 在 GitHub Releases 创建新版本，上传安装程序。文件名建议使用英文，例如 FileSwift_Setup.exe。
+1. 在 GitHub Releases 创建新版本，上传安装程序。文件名建议使用英文，例如 FileSwift_Setup_20261028.exe。
 2. 修改仓库根目录 download-config.js 的 version、fileswiftDirectUrl、backupUrl。
 3. 提交到 main，等待 GitHub Pages 发布完成。
 
@@ -22,6 +22,6 @@
 
 ## 本次安装包校验
 
-文件名：FileSwift_Setup.exe
-大小：234212156 字节
-SHA-256：55b03d954b46052cb90a42c87bd147548ce7679717347607976847214bd2825a
+文件名：FileSwift_Setup_20261028.exe
+大小：234230753 字节
+SHA-256：3d7dc073e064c1fd8dbf4040371d4a1eafdb9572b7f006432d7dd7b465c82400
