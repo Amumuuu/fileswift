@@ -1,12 +1,12 @@
-# FileSwift 官网维护（V7.3）
+# FileSwift 官网维护（V7.4）
 
 官网：https://fileswift.cn
 仓库：https://github.com/Amumuuu/fileswift
-当前安装包：https://github.com/Amumuuu/fileswift/releases/tag/v7.3
+当前安装包：https://github.com/Amumuuu/fileswift/releases/tag/v7.4
 
 ## 升版与替换下载地址
 
-1. 在 GitHub Releases 创建新版本，上传安装程序。文件名建议使用英文，例如 FileSwift_Setup_20261028_2.exe。
+1. 在 GitHub Releases 创建新版本，上传安装程序。文件名建议使用英文，例如 FileSwift_V7.4_setup.exe。
 2. 修改仓库根目录 download-config.js 的 version、fileswiftDirectUrl、backupUrl。
 3. 提交到 main，等待 GitHub Pages 发布完成。
 
@@ -18,10 +18,10 @@
 
 当前依次为：文件批量查找、图纸智能处理、CAD快捷看图、批量改名工具、加密图纸破解。六张例图均为用户提供的 V7.3 截图。页面使用无损 WebP，点击放大加载高清 PNG；新版 Logo 与 favicon 已同步替换。
 
-本地根目录与 GitHub上传文件 是发布版副本；V7.3本地预览 是预览副本。文件在本地修改后不会自动同步到 GitHub。
+本地根目录与 GitHub上传文件 是发布版副本；V7.4本地预览 是预览副本。文件在本地修改后不会自动同步到 GitHub。
 
 ## 本次安装包校验
 
-文件名：FileSwift_Setup_20261028_2.exe
-大小：234247682 字节
-SHA-256：b256aaf7ab1d47839e15c63d00d244bb1d3b4c36602fef823369f55dbe48aad6
+文件名：FileSwift_V7.4_setup.exe
+大小：234233202 字节
+SHA-256：ee0c3db0b215bb5fbf72f5c60a009f075b72b1ce87431d17278102666b6db51e
