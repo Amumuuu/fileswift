@@ -5,5 +5,5 @@ window.FILESWIFT_DOWNLOAD = {
   version: 'V7.4',
   acceleratedUrl: 'https://ghfast.top/' + fileswiftDirectUrl,
   directUrl: fileswiftDirectUrl,
-  backupUrl: 'https://pan.baidu.com/s/1z6HUDnaMUX8rBeA7jN9CwQ?pwd=6666'
+  backupUrl: 'https://pan.baidu.com/s/15SzoSFjYDiQT2D9ccRPj_A?pwd=6666'
 };
