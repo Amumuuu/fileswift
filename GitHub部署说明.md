@@ -6,7 +6,7 @@
 
 ## 升版与替换下载地址
 
-1. 在 GitHub Releases 创建新版本，上传安装程序。文件名建议使用英文，例如 FileSwift_V7.4_setup.exe。
+1. 在 GitHub Releases 创建新版本，上传安装程序。文件名建议使用英文，例如 FileSwift_V7.4_setup_20261102.exe。
 2. 修改仓库根目录 download-config.js 的 version、fileswiftDirectUrl、backupUrl。
 3. 提交到 main，等待 GitHub Pages 发布完成。
 
@@ -22,6 +22,6 @@
 
 ## 本次安装包校验
 
-文件名：FileSwift_V7.4_setup.exe
-大小：234233202 字节
-SHA-256：ee0c3db0b215bb5fbf72f5c60a009f075b72b1ce87431d17278102666b6db51e
+文件名：FileSwift_V7.4_setup_20261102.exe
+大小：234262823 字节
+SHA-256：f4da6ecb1e7ea9f0c00318bb3961345ae2b0a6d267e6285192d7e92d3c1192d0
