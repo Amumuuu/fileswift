@@ -1,12 +1,12 @@
-# FileSwift 官网维护（V7.5）
+# FileSwift 官网维护（V7.6）
 
 官网：https://fileswift.cn
 仓库：https://github.com/Amumuuu/fileswift
-当前安装包：https://github.com/Amumuuu/fileswift/releases/tag/v7.5
+当前安装包：https://github.com/Amumuuu/fileswift/releases/tag/v7.6
 
 ## 升版与替换下载地址
 
-1. 在 GitHub Releases 创建新版本，上传安装程序。文件名建议使用英文，例如 FileSwift_V7.5_setup.exe。
+1. 在 GitHub Releases 创建新版本，上传安装程序。文件名建议使用英文，例如 FileSwift_V7.6_setup.exe。
 2. 修改仓库根目录 download-config.js 的 version、fileswiftDirectUrl、backupUrl。
 3. 提交到 main，等待 GitHub Pages 发布完成。
 
@@ -18,10 +18,10 @@
 
 当前依次为：文件批量查找、图纸智能处理、CAD快捷看图、批量改名工具、加密图纸破解。六张例图均为用户提供的 V7.3 截图。页面使用无损 WebP，点击放大加载高清 PNG；新版 Logo 与 favicon 已同步替换。
 
-本地根目录与 GitHub上传文件 是发布版副本；V7.5本地预览 是预览副本。文件在本地修改后不会自动同步到 GitHub。
+本地根目录与 GitHub上传文件 是发布版副本；V7.6本地预览 是预览副本。文件在本地修改后不会自动同步到 GitHub。
 
 ## 本次安装包校验
 
-文件名：FileSwift_V7.5_setup.exe
-大小：234217734 字节
-SHA-256：a50c75f1ad7b578b62a0a9822394f77b1c7f63e0c20c8fed1888b8e505ec3097
+文件名：FileSwift_V7.6_setup.exe
+大小：236017638 字节
+SHA-256：8eb4ae1286380451d2d988c90519b26ca65afd13ae39544476512d22d8a77610
